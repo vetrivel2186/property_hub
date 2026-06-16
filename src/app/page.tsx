@@ -1,11 +1,13 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white sm:items-start">
-       
-      </main>
+    <div className="mt-20 text-center">
+      <h1 className="text-5xl font-bold">
+        Find Your Dream Home
+      </h1>
+
+      <p className="mt-5 text-gray-500">
+        Buy, Rent and Sell properties easily.
+      </p>
     </div>
   );
 }

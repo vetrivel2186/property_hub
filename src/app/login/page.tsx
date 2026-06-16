@@ -1,11 +1,13 @@
-import Image from "next/image";
+import LoginForm from "@/components/forms/loginForm";
 
-export default function Login() {
+export default function LoginPage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white sm:items-start">
-       
-      </main>
+    <div className="max-w-md mx-auto mt-20">
+      <h1 className="text-3xl font-bold mb-8 text-center">
+        Login
+      </h1>
+
+      <LoginForm />
     </div>
   );
 }
