@@ -15,11 +15,14 @@ export default function PropertyInfo({
       </h1>
 
       <p className="text-gray-500">
-        {property.location}, {property.city}
+        {property.location}
+      </p>
+      <p className="text-gray-500">
+        {property.city}
       </p>
 
       <h2 className="text-3xl text-blue-600 font-bold">
-        ₹{property.price.toLocaleString()}
+        ₹{property.price}
       </h2>
 
       <div className="flex gap-6">

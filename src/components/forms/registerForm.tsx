@@ -3,9 +3,15 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterFormData, registerSchema } from "@/schema/registerSchema";
+import { registerUser } from "@/services/authApi";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Cookies from "js-cookie";
 
 
 export default function RegisterForm() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -14,8 +20,29 @@ export default function RegisterForm() {
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = (data: RegisterFormData) => {
+  const onSubmit = async (data: RegisterFormData) => {
     console.log(data);
+    const body = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    };
+
+    try {
+      setIsLoading(true);
+      const response = await registerUser(body);
+      Cookies.set("accessToken", response.accessToken, {
+        expires: 1, // 1 day
+      });
+
+      Cookies.set("refreshToken", response.refreshToken, {
+        expires: 7,
+      });
+      localStorage.setItem("loginUser", JSON.stringify(response.user))
+      router.push("/properties");
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
 
   return (

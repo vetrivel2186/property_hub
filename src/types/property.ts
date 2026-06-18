@@ -1,19 +1,6 @@
-// export interface Property {
-//   id: string;
-//   title: string;
-//   description: string;
-//   city: string;
-//   location: string;
-//   price: number;
-//   propertyType: string;
-//   bedrooms: number;
-//   bathrooms: number;
-//   areaSqft: number;
-//   imageUrl: string;
-// }
 
 export interface Property {
-  id: string;
+  id: number;
   title: string;
   description: string;
   city: string;
@@ -23,6 +10,13 @@ export interface Property {
   bedrooms: number;
   bathrooms: number;
   areaSqft: number;
+  primaryImageUrl:string;
+}
 
-  imageUrls: string[];
+export interface ImageInterface {
+  id:number,
+  propertyId:number,
+  imageUrl: string,
+  isPrimary:boolean,
+  createdAt:string
 }

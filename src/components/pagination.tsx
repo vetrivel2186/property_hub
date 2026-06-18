@@ -1,21 +1,48 @@
-export default function Pagination() {
+"use client";
+
+interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+
+  onPageChange: (
+    page: number
+  ) => void;
+}
+
+export default function Pagination({
+  currentPage,
+  totalPages,
+  onPageChange,
+}: PaginationProps) {
   return (
-    <div className="flex justify-center gap-3 mt-10">
-      <button className="border px-4 py-2 rounded">
+    <div className="flex justify-center gap-4 mt-40">
+
+      <button
+        disabled={currentPage === 1}
+        onClick={() =>
+          onPageChange(currentPage - 1)
+        }
+        className="border px-4 py-2 rounded"
+      >
         Previous
       </button>
 
-      <button className="bg-blue-600 text-white px-4 py-2 rounded">
-        1
-      </button>
+      <span className="flex items-center">
+        {currentPage} / {totalPages}
+      </span>
 
-      <button className="border px-4 py-2 rounded">
-        2
-      </button>
-
-      <button className="border px-4 py-2 rounded">
+      <button
+        disabled={
+          currentPage === totalPages
+        }
+        onClick={() =>
+          onPageChange(currentPage + 1)
+        }
+        className="border px-4 py-2 rounded"
+      >
         Next
       </button>
+
     </div>
   );
 }

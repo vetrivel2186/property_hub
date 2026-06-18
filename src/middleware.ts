@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {
-  const token = req.cookies.get("token");
-
+  const token = req.cookies.get("accessToken")?.value;
+ console.log(token)
   const protectedRoutes = [
     "/dashboard",
     "/my-properties",
@@ -20,3 +20,12 @@ export function middleware(req: NextRequest) {
 
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: [
+    "/dashboard/:path*",
+    "/my-properties/:path*",
+    "/create-property/:path*",
+    "/edit-property/:path*",
+  ],
+};

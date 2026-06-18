@@ -1,8 +1,8 @@
-import PropertyForm from "@/components/propertyForm";
+import PropertyForm from "./editPropertyForm";
 
 export default function EditPropertyPage() {
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-6xl mx-auto">
 
       <h1 className="text-4xl font-bold mb-8">
         Edit Property

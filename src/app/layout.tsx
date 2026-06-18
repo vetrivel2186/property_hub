@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/navbar";
-import LocatorInitializer from "@/components/locator";
+import LocatorInitializer from "@/locator";
 
 
 

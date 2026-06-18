@@ -3,10 +3,17 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormData, loginSchema } from "@/schema/loginSchema";
+import { loginUser } from "@/services/authApi";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 
 
 export default function LoginForm() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -15,8 +22,27 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log(data);
+  const onSubmit = async (data: LoginFormData) => {
+ try {
+    setIsLoading(true);
+
+    const response = await loginUser(data);
+   console.log("response",response)
+    Cookies.set("accessToken", response.accessToken, {
+      expires: 1, // 1 day
+    });
+
+  Cookies.set("refreshToken", response.refreshToken, {
+      expires: 7,
+    });
+    localStorage.setItem("loginUser",JSON.stringify(response.user))
+
+    router.push("/properties");
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setIsLoading(false);
+  }
   };
 
   return (
@@ -51,9 +77,11 @@ export default function LoginForm() {
       </div>
 
       <button
-        className="bg-blue-600 text-white w-full p-3 rounded"
+        type="submit"
+        disabled={isLoading}
+        className="bg-blue-600 text-white w-full p-3 rounded disabled:opacity-50"
       >
-        Login
+        {isLoading ? "Logging in..." : "Login"}
       </button>
     </form>
   );
